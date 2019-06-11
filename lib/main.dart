@@ -1,53 +1,111 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(SnackBarDemo());
+void main() => runApp(MyApp());
 
-class SnackBarDemo extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTitle = 'Form Validation Demo';
+
     return MaterialApp(
-      title: 'SnackBar Demo',
+      title: appTitle,
       theme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('SnackBar Demo'),
+          title: Text(appTitle),
         ),
-        body: SnackBarPage(),
+        body: MyCustomForm(),
       ),
     );
   }
 }
 
-class SnackBarPage extends StatelessWidget {
+// Create a Form Widget
+class MyCustomForm extends StatefulWidget {
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+// Create a corresponding State class. This class will hold the data related to
+// the form.
+class MyCustomFormState extends State<MyCustomForm> {
+  // Create a global key that will uniquely identify the Form widget and allow
+  // us to validate the form
+  //
+  // Note: This is a GlobalKey<FormState>, not a GlobalKey<MyCustomFormState>!
+  final _formKey = GlobalKey<FormState>();
+  final _newformKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: RaisedButton(
-        color: Colors.amber,
-        onPressed: () {
-          final snackBar = SnackBar(
-            content: Text(
-              'Yay! A SnackBar!',
-              style: TextStyle(color: Colors.amber),
-            ),
-            backgroundColor: Color(0Xffc400),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change!
-              },
-            ),
-          );
-
-          // Find the Scaffold in the Widget tree and use it to show a SnackBar!
-          // Encontrar el Scaffold por medio del of, se hace usando el Inherited Widget
-          Scaffold.of(context).showSnackBar(snackBar);
-        },
-        child: Text(
-          'Show SnackBar',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
+    // Build a Form widget using the _formKey we created above
+    return Column(
+      children: <Widget>[
+        Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: RaisedButton(
+                  onPressed: () {
+                    // Validate will return true if the form is valid, or false if
+                    // the form is invalid.
+                    if (_formKey.currentState.validate()) {
+                      // If the form is valid, we want to show a Snackbar
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('Processing Data')));
+                    }
+                  },
+                  child: Text('Submit'),
+                ),
+              ),
+            ],
+          ),
+        ), //Form
+        Form(
+          key: _newformKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: RaisedButton(
+                  onPressed: () {
+                    // Validate will return true if the form is valid, or false if
+                    // the form is invalid.
+                    if (_newformKey.currentState.validate()) {
+                      // If the form is valid, we want to show a Snackbar
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('Processing Data')));
+                    }
+                  },
+                  child: Text('Submit'),
+                ),
+              ),
+            ],
+          ),
+        ), //Form
+      ],
     );
   }
 }
