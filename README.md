@@ -2,7 +2,7 @@
 
 # Usar Themes para compartir colores y estilos de fuentes.
 
-En algunos casos es importante informar a nuestros usuarios cuando se ejecutan ciertas acciones, por ejemplo cuando un usuario elimina un elemento de la lista, debemos informarle por medio de un mensaje que algo se elimino, para esto usamos un SnackBar.
+Para compartir diferentes tipos de fuentes en toda la app y colores, podemos usar los Themes.
 
 
-![](SnackBar.gif)
+![](FlutterThemes.png)
