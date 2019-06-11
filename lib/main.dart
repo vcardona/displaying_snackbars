@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+<<<<<<< Updated upstream
 void main() => runApp(SnackBarDemo());
 
 class SnackBarDemo extends StatelessWidget {
@@ -46,6 +47,46 @@ class SnackBarPage extends StatelessWidget {
         child: Text(
           'Show SnackBar',
           style: TextStyle(color: Colors.black),
+=======
+void main() {
+  runApp(TabBarDemo());
+}
+
+class TabBarDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.directions_car)),
+                Tab(icon: Icon(Icons.directions_transit)),
+                Tab(icon: Icon(Icons.directions_bike)),
+              ],
+            ),
+            title: Text('Flutter - Tabs Demo'),
+          ),
+          body: TabBarView(
+            children: [
+              Icon(
+                Icons.directions_car,
+                size: 200,
+              ),
+              Icon(
+                Icons.directions_transit,
+                size: 200,
+              ),
+              Icon(
+                Icons.directions_bike,
+                size: 200,
+              ),
+            ],
+          ),
+>>>>>>> Stashed changes
         ),
       ),
     );
