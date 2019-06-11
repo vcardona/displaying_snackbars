@@ -1,8 +1,7 @@
 # En este proyecto vas a encontrar diferentes Branch con varios ejemplos, puedes navegar en cada uno y ver los ejercicios realizados.
 
-# Displaying Snackbars
+# Working with Tabs
 
-En algunos casos es importante informar a nuestros usuarios cuando se ejecutan ciertas acciones, por ejemplo cuando un usuario elimina un elemento de la lista, debemos informarle por medio de un mensaje que algo se elimino, para esto usamos un SnackBar.
+Trabajar con tabs es un patron común en las aplicaciones, Flutter incluye una forma conveniente de crear Tabs.
 
-
-![](SnackBar.gif)
+![](FlutterTabsDemo.gif)
