@@ -1,53 +1,90 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(SnackBarDemo());
+void main() => runApp(MyApp());
 
-class SnackBarDemo extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SnackBar Demo',
       theme: ThemeData.dark(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('SnackBar Demo'),
-        ),
-        body: SnackBarPage(),
-      ),
+      title: 'Text Field Focus',
+      home: MyCustomForm(),
     );
   }
 }
 
-class SnackBarPage extends StatelessWidget {
+// Define a Custom Form Widget
+class MyCustomForm extends StatefulWidget {
+  @override
+  _MyCustomFormState createState() => _MyCustomFormState();
+}
+
+// Define a corresponding State class. This class will hold the data related to
+// the form.
+class _MyCustomFormState extends State<MyCustomForm> {
+  // Define the focus node. To manage the lifecycle, create the FocusNode in
+  // the initState method, and clean it up in the dispose method
+  FocusNode myFocusNode;
+  FocusNode mySecondFocusNode;
+  FocusNode myThirdFocusNode;
+  FocusNode myFourthFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed
+    myFocusNode.dispose();
+    mySecondFocusNode.dispose();
+    myThirdFocusNode.dispose();
+    myFourthFocusNode.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: RaisedButton(
-        color: Colors.amber,
-        onPressed: () {
-          final snackBar = SnackBar(
-            content: Text(
-              'Yay! A SnackBar!',
-              style: TextStyle(color: Colors.amber),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Text Field Focus - Flutter'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // The first text field will be focused as soon as the app starts
+            TextField(
+              autofocus: true,
             ),
-            backgroundColor: Color(0Xffc400),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change!
-              },
+            // The second text field will be focused when a user taps on the
+            // FloatingActionButton
+            TextField(
+              focusNode: myFocusNode,
             ),
-          );
-
-          // Find the Scaffold in the Widget tree and use it to show a SnackBar!
-          // Encontrar el Scaffold por medio del of, se hace usando el Inherited Widget
-          Scaffold.of(context).showSnackBar(snackBar);
-        },
-        child: Text(
-          'Show SnackBar',
-          style: TextStyle(color: Colors.black),
+            TextField(
+              focusNode: mySecondFocusNode,
+            ),
+            TextField(
+              focusNode: myThirdFocusNode,
+            ),
+            TextField(
+              focusNode: myFourthFocusNode,
+            ),
+          ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        // When the button is pressed, ask Flutter to focus our text field using
+        // myFocusNode.
+        onPressed: () => FocusScope.of(context).requestFocus(myFocusNode),
+        tooltip: 'Focus Second Text Field',
+        child: Icon(Icons.edit),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
